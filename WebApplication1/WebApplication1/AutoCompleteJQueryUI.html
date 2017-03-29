@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- jquery-ui.css used to styling the search list items .if we comment, items showns as bulletin items IE,Edge,Chrome. Firefox works without below styel-->
+    <!--<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />-->
+    <link href="Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    
+    <!-- below jquery-1.12.4.js is required to execute jquery commands-->
+    <!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+    <script src="Scripts/jquery-1.12.4.js"></script>
+
+    <!-- autocomplete function will work if we include jqurey-ui.*.js-->
+    <script src="Scripts/jquery-ui-1.12.1.js"></script>
+    <!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
+    <script>
+        $(function () {
+            //declare array variable with value initializes..
+            var availableTags = ["ActionScript", "AppleScript","Asp","BASIC","C","C++","Clojure","COBOL","ColdFusion","Erlang","Fortran","Groovy",
+      "Haskell","Java","JavaScript","Lisp","Perl","PHP","Python","Ruby","Scala","Scheme"];
+            //declare selector in the html body to hold the value
+            // call autocomplete call
+            $("#tags").autocomplete({
+                source: availableTags,
+                minlength:0
+            });
+            //bind the data to dropdown tags
+        });
+    </script>
+
+
+</head>
+<body>
+    <div class="ui-widget">
+        <!-- for syntax for label calls. labeled control. One input can be associated with multiple labels.-->
+        <!--for and id tags should be same-->
+        <!--<label for="tags">Tags: </label>
+        <input id="tags"/>-->
+
+        <!-- without for syntax. Both above and below are same func.-->
+        <label>Tags: <input id="tags" /></label>
+    </div>
+
+    <div class="ui-widget">
+        <label for="tags2">Tags2:</label>
+        <input id="tags2" />
+    </div>
+
+    <script>
+        var sourcetags = [ "c++", "java", "php", "coldfusion", "javascript", "asp", "ruby" ];
+        $("#tags2").autocomplete({
+            source: function (request, response) {
+                // "^" is 
+                var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
+                response($.grep(sourcetags, function (item) {
+                return matcher.test( item );
+          }) );
+      }
+    });
+    </script>
+</body>
+</html>
